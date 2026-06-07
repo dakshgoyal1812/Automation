@@ -16,10 +16,10 @@
  */
 
 // Replace this with your actual Railway deployed backend URL (e.g., https://your-app.up.railway.app)
-const BACKEND_URL = "https://your-alisa-backend-url.up.railway.app";
+const BACKEND_URL = "https://automation-f864.onrender.com";
 
 // Replace this with the GMAIL_BRIDGE_SECRET set in your Railway environment variables
-const BRIDGE_SECRET = "your_gmail_bridge_secret_here";
+const BRIDGE_SECRET = "verify_alisa";
 
 function syncUnreadEmails() {
   Logger.log("Starting Gmail Sync...");
