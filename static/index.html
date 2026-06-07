@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alisa - Your Digital Command Center</title>
+    <meta name="description" content="Manage your Gmail, Spotify, WhatsApp, Discord, Telegram, and Instagram feeds with Alisa, your sassy and dramatic personal AI assistant dashboard.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Main Container -->
+    <div class="app-container">
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-area">
+                    <div class="core-dot-container">
+                        <span class="core-dot" id="alisa-core-dot"></span>
+                    </div>
+                    <span class="logo-text">ALISA</span>
+                </div>
+                <p class="logo-subtext">Digital Assistant</p>
+            </div>
+
+            <nav class="sidebar-menu">
+                <ul>
+                    <li>
+                        <button class="nav-link active" data-target="view-dashboard" id="btn-nav-dashboard">
+                            <span class="icon">📊</span> Dashboard
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-link" data-target="view-gmail" id="btn-nav-gmail">
+                            <span class="icon">✉️</span> Gmail
+                            <span class="badge badge-email" id="badge-email-count">4</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-link" data-target="view-messages" id="btn-nav-messages">
+                            <span class="icon">💬</span> Chat (WA / TG)
+                            <span class="badge badge-chat" id="badge-chat-count">7</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-link" data-target="view-discord" id="btn-nav-discord">
+                            <span class="icon">👾</span> Discord
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-link" data-target="view-instagram" id="btn-nav-instagram">
+                            <span class="icon">📸</span> Instagram
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-link" data-target="view-spotify" id="btn-nav-spotify">
+                            <span class="icon">🎵</span> Spotify
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-link" data-target="view-automation" id="btn-nav-automation">
+                            <span class="icon">⚙️</span> Automation
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar">R</div>
+                    <div class="user-info">
+                        <span class="user-name">Rishika</span>
+                        <span class="user-role">Boss</span>
+                    </div>
+                </div>
+                
+                <!-- Sass Slider Selector -->
+                <div class="sass-selector-container">
+                    <label for="sass-level-slider" class="sass-label">Drama Level: <span id="sass-level-label">Dramatic</span></label>
+                    <input type="range" id="sass-level-slider" min="1" max="3" value="3" class="sass-slider" aria-label="Sass level control">
+                    <div class="slider-marks">
+                        <span>Mild</span>
+                        <span>Spicy</span>
+                        <span>Drama</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Area -->
+        <main class="main-content">
+
+            <!-- Global Header -->
+            <header class="app-header">
+                <div class="header-left">
+                    <h1 class="header-title" id="greeting-title">Loading digital life...</h1>
+                    <p class="header-subtitle" id="greeting-subtitle">Hold on, looking through your chaotic notification stack.</p>
+                </div>
+                <div class="header-right">
+                    <div class="system-status-indicator">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Fully Loaded (Mostly)</span>
+                    </div>
+                    <div class="clock" id="current-clock">14:08</div>
+                </div>
+            </header>
+
+            <!-- Dashboard View -->
+            <section class="content-view active" id="view-dashboard">
+                
+                <!-- Status Grid Cards -->
+                <div class="status-grid">
+                    <div class="status-card" id="card-gmail-summary">
+                        <div class="card-icon email-icon">✉️</div>
+                        <div class="card-content">
+                            <h3>Emails</h3>
+                            <p class="stat-number">4 Unread</p>
+                            <p class="stat-caption">2 from school, 1 work, 1 receipt</p>
+                        </div>
+                    </div>
+                    <div class="status-card" id="card-messages-summary">
+                        <div class="card-icon chat-icon">💬</div>
+                        <div class="card-content">
+                            <h3>Pings</h3>
+                            <p class="stat-number">7 Messages</p>
+                            <p class="stat-caption">WhatsApp & Telegram active</p>
+                        </div>
+                    </div>
+                    <div class="status-card" id="card-discord-summary">
+                        <div class="card-icon discord-icon">👾</div>
+                        <div class="card-content">
+                            <h3>Discord</h3>
+                            <p class="stat-number">3 Mentions</p>
+                            <p class="stat-caption">In "Antigravity Devs" server</p>
+                        </div>
+                    </div>
+                    <div class="status-card" id="card-instagram-summary">
+                        <div class="card-icon instagram-icon">📸</div>
+                        <div class="card-content">
+                            <h3>Instagram</h3>
+                            <p class="stat-number">2 DMs</p>
+                            <p class="stat-caption">Notifications from friends</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Layout Splits -->
+                <div class="dashboard-split">
+                    
+                    <!-- Left: Interactive Chat with Alisa -->
+                    <div class="dashboard-panel chat-panel">
+                        <div class="panel-header">
+                            <div class="assistant-profile">
+                                <img src="alisa_avatar.png" alt="Alisa Digital Avatar" class="assistant-avatar" id="assistant-avatar-img">
+                                <div class="assistant-details">
+                                    <h2>Alisa</h2>
+                                    <span class="assistant-status" id="assistant-status-text">online • feeling sighs</span>
+                                </div>
+                            </div>
+                            <div class="drama-tag-container">
+                                <span class="drama-tag dramatic" id="panel-drama-tag">Dramatic</span>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-messages" id="chat-messages-container">
+                            <!-- Initial messages will be generated by JS -->
+                        </div>
+
+                        <!-- Chat input & suggestion pills -->
+                        <div class="chat-input-area">
+                            <div class="suggestion-chips" id="suggestion-chips-container">
+                                <button class="chip" data-query="Do I have any urgent emails?">📧 Urgent emails?</button>
+                                <button class="chip" data-query="Snooze my messages please">🔕 Snooze chat pings</button>
+                                <button class="chip" data-query="Tell me a joke to cheer me up">🎭 Tell a joke</button>
+                                <button class="chip" data-query="Recommend some chill coding music">🎵 Play chill tracks</button>
+                            </div>
+                            <div class="input-form">
+                                <input type="text" id="chat-input-field" placeholder="Ask me something, I'll think about answering..." aria-label="Ask Alisa a question">
+                                <button type="button" id="chat-send-btn" class="btn btn-send">Send</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Widgets -->
+                    <div class="dashboard-sidebar-widgets">
+                        
+                        <!-- Spotify Widget -->
+                        <div class="widget spotify-widget" id="spotify-mini-widget">
+                            <div class="widget-header">
+                                <span class="widget-icon">🎵</span>
+                                <h3>Spotify Playback</h3>
+                                <div class="playing-gif" id="spotify-eq-bars">
+                                    <span class="bar"></span>
+                                    <span class="bar"></span>
+                                    <span class="bar"></span>
+                                    <span class="bar"></span>
+                                </div>
+                            </div>
+                            <div class="spotify-body">
+                                <img src="spotify_cover.png" alt="Spotify Album Art" class="spotify-album-art" id="spotify-album-img">
+                                <div class="spotify-track-info">
+                                    <h4 class="track-title" id="spotify-track-name">Ennodu Nee Irundhaal</h4>
+                                    <p class="track-artist" id="spotify-track-artist">A. R. Rahman • I (Soundtrack)</p>
+                                </div>
+                            </div>
+                            <div class="spotify-controls">
+                                <div class="progress-container">
+                                    <span class="time" id="spotify-time-curr">1:15</span>
+                                    <input type="range" id="spotify-seek-bar" min="0" max="100" value="35" class="spotify-seek" aria-label="Seek progress">
+                                    <span class="time" id="spotify-time-total">4:12</span>
+                                </div>
+                                <div class="control-buttons">
+                                    <button class="spotify-btn" id="spotify-prev-btn" aria-label="Previous track">⏮️</button>
+                                    <button class="spotify-btn play-btn" id="spotify-play-btn" aria-label="Play or Pause">⏸️</button>
+                                    <button class="spotify-btn" id="spotify-next-btn" aria-label="Next track">⏭️</button>
+                                    <button class="spotify-btn" id="spotify-volume-toggle" aria-label="Toggle volume">🔊</button>
+                                </div>
+                                <div class="volume-slider-container" id="volume-container">
+                                    <input type="range" id="spotify-volume-slider" min="0" max="100" value="80" class="spotify-volume" aria-label="Volume controller">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Urgent Alerts Widget -->
+                        <div class="widget urgent-widget" id="urgent-alerts-widget">
+                            <div class="widget-header">
+                                <span class="widget-icon">⚠️</span>
+                                <h3>Urgent Priority Feed</h3>
+                                <span class="badge badge-urgent" id="urgent-alerts-count">2</span>
+                            </div>
+                            <div class="alerts-list" id="dashboard-urgent-list">
+                                <!-- Loaded dynamically via JS -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gmail View -->
+            <section class="content-view" id="view-gmail">
+                <div class="integration-layout">
+                    <!-- Left: Folders & List -->
+                    <div class="integration-list-pane">
+                        <div class="list-pane-header">
+                            <h3>Inbox Folder</h3>
+                            <button class="btn btn-icon-only" id="gmail-refresh-btn" aria-label="Refresh emails">🔄</button>
+                        </div>
+                        <div class="inbox-list" id="gmail-inbox-list">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                    <!-- Right: Detail view -->
+                    <div class="integration-detail-pane">
+                        <div class="detail-pane-placeholder" id="gmail-placeholder">
+                            <span class="placeholder-icon">✉️</span>
+                            <p>Select an email to view body text and get AI actions.</p>
+                        </div>
+                        <div class="detail-pane-content hidden" id="gmail-detail-content">
+                            <div class="email-detail-header">
+                                <div class="email-sender-meta">
+                                    <span class="sender-avatar" id="email-sender-avatar">P</span>
+                                    <div>
+                                        <h4 id="email-detail-sender">Project Manager</h4>
+                                        <p class="email-to">to me</p>
+                                    </div>
+                                </div>
+                                <span class="email-time" id="email-detail-time">10:30 AM</span>
+                            </div>
+                            <h3 class="email-subject" id="email-detail-subject">Project Deadline Update Request</h3>
+                            <div class="email-body" id="email-detail-body">
+                                <!-- Email text goes here -->
+                            </div>
+                            <div class="email-actions">
+                                <button class="btn btn-secondary" id="btn-gmail-summarize">📝 Summarize Email</button>
+                                <button class="btn btn-secondary" id="btn-gmail-draft">✍️ Draft Sassy Reply</button>
+                            </div>
+                            <div class="ai-output-box hidden" id="gmail-ai-output-box">
+                                <div class="ai-box-header">
+                                    <span>Alisa says:</span>
+                                    <button class="btn-close" id="btn-close-gmail-ai" aria-label="Close summary">&times;</button>
+                                </div>
+                                <p class="ai-box-text" id="gmail-ai-output-text">AI generated summaries go here...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Messages View (WhatsApp / Telegram) -->
+            <section class="content-view" id="view-messages">
+                <div class="integration-layout">
+                    <div class="integration-list-pane">
+                        <div class="tabs-header">
+                            <button class="tab-pill active" id="btn-messages-wa">WhatsApp</button>
+                            <button class="tab-pill" id="btn-messages-tg">Telegram</button>
+                        </div>
+                        <div class="chats-list" id="messages-chats-list">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                    <div class="integration-detail-pane chat-detail-pane">
+                        <div class="detail-pane-placeholder" id="chat-placeholder">
+                            <span class="placeholder-icon">💬</span>
+                            <p>Select a contact to view chat transcripts.</p>
+                        </div>
+                        <div class="detail-pane-content chat-thread-view hidden" id="chat-thread-content">
+                            <div class="chat-thread-header">
+                                <span class="chat-thread-avatar" id="chat-thread-avatar">M</span>
+                                <h4 id="chat-thread-name">Mom</h4>
+                            </div>
+                            <div class="chat-thread-body" id="chat-thread-body-list">
+                                <!-- Messages will render here -->
+                            </div>
+                            <div class="chat-thread-input">
+                                <input type="text" id="chat-reply-input" placeholder="Type a message..." aria-label="Send chat reply">
+                                <button class="btn btn-send" id="chat-reply-send-btn">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Discord View -->
+            <section class="content-view" id="view-discord">
+                <div class="integration-layout">
+                    <!-- Servers Sidebar -->
+                    <div class="discord-servers-pane">
+                        <div class="discord-avatar-btn active" title="Antigravity Devs">👾</div>
+                        <div class="discord-avatar-btn" title="Gaming Lounge">🎮</div>
+                        <div class="discord-avatar-btn" title="Memes Server">🐸</div>
+                    </div>
+                    <!-- Channels List -->
+                    <div class="discord-channels-pane">
+                        <h3>Antigravity Devs</h3>
+                        <ul class="channel-list">
+                            <li class="active"># announcements</li>
+                            <li># general</li>
+                            <li># bot-spam</li>
+                            <li># lounge</li>
+                        </ul>
+                    </div>
+                    <!-- Central Announcement Feed & Composer -->
+                    <div class="discord-feed-pane">
+                        <div class="announcements-feed-header">
+                            <h3># announcements</h3>
+                            <p>Official server updates and broadcasts.</p>
+                        </div>
+                        <div class="announcements-messages" id="discord-announcements-messages">
+                            <!-- Populated dynamically -->
+                        </div>
+                        <div class="discord-announcement-composer">
+                            <h3>Broadcaster / Announcement Creator</h3>
+                            <p class="composer-sub">Create an announcement to post to this Discord server. Alisa will deliver it with sass.</p>
+                            <div class="form-group">
+                                <label for="discord-composer-title">Announcement Title</label>
+                                <input type="text" id="discord-composer-title" placeholder="Important Update..." class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="discord-composer-body">Announcement Body</label>
+                                <textarea id="discord-composer-body" placeholder="What are you announcing? Keep it short, they don't read it anyway." class="form-control" rows="3"></textarea>
+                            </div>
+                            <button class="btn btn-primary" id="btn-discord-post">Post Announcement</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Instagram View -->
+            <section class="content-view" id="view-instagram">
+                <div class="instagram-dashboard">
+                    <div class="insta-stories">
+                        <div class="story-circle active">
+                            <div class="story-avatar">A</div>
+                            <span>Aman</span>
+                        </div>
+                        <div class="story-circle active">
+                            <div class="story-avatar">S</div>
+                            <span>Shruti</span>
+                        </div>
+                        <div class="story-circle">
+                            <div class="story-avatar">N</div>
+                            <span>Neha</span>
+                        </div>
+                    </div>
+
+                    <div class="insta-grid">
+                        <div class="insta-notifications-card">
+                            <h3>Instagram Activity</h3>
+                            <ul class="insta-notifications-list">
+                                <li>
+                                    <span class="user-bubble">S</span>
+                                    <p><strong>Shruti</strong> liked your story. <span class="time-ago">2h</span></p>
+                                </li>
+                                <li>
+                                    <span class="user-bubble">A</span>
+                                    <p><strong>Aman</strong> mentioned you in a comment. <span class="time-ago">4h</span></p>
+                                </li>
+                                <li>
+                                    <span class="user-bubble">D</span>
+                                    <p><strong>DevTeam</strong> started following you. <span class="time-ago">1d</span></p>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="insta-dm-card">
+                            <h3>DMs (Direct Messages)</h3>
+                            <div class="dm-threads-list" id="insta-dm-threads-container">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Spotify View (Expanded) -->
+            <section class="content-view" id="view-spotify">
+                <div class="spotify-expanded-grid">
+                    <!-- Main Player Panel -->
+                    <div class="spotify-full-player">
+                        <h2>Now Playing</h2>
+                        <div class="full-player-body">
+                            <img src="spotify_cover.png" alt="Spotify Album Art" class="spotify-large-album-art" id="spotify-large-art">
+                            <div class="track-details-large">
+                                <h3 id="spotify-large-track-name">Ennodu Nee Irundhaal</h3>
+                                <p id="spotify-large-track-artist">A. R. Rahman • I (Soundtrack)</p>
+                            </div>
+                        </div>
+                        <div class="spotify-expanded-controls">
+                            <div class="progress-container">
+                                <span class="time" id="spotify-large-time-curr">1:15</span>
+                                <input type="range" id="spotify-large-seek-bar" min="0" max="100" value="35" class="spotify-seek" aria-label="Seek progress expanded">
+                                <span class="time" id="spotify-large-time-total">4:12</span>
+                            </div>
+                            <div class="control-buttons">
+                                <button class="spotify-btn-large" id="spotify-large-prev" aria-label="Previous track">⏮️</button>
+                                <button class="spotify-btn-large play-btn" id="spotify-large-play" aria-label="Play or Pause">⏸️</button>
+                                <button class="spotify-btn-large" id="spotify-large-next" aria-label="Next track">⏭️</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Playlist Generator -->
+                    <div class="spotify-playlists-panel">
+                        <h3>Mood Playlist Recommendations</h3>
+                        <p class="playlist-sub">Choose a mood, and I will recommend a song (and play it) with appropriate level of sass.</p>
+                        
+                        <div class="mood-playlist-grid">
+                            <button class="mood-btn" data-mood="coding">💻 Coding Grind</button>
+                            <button class="mood-btn" data-mood="angry">🔥 Sassy Rant</button>
+                            <button class="mood-btn" data-mood="chill">🍵 Samosa & Rain</button>
+                            <button class="mood-btn" data-mood="energetic">⚡ Hyperactive Energy</button>
+                        </div>
+
+                        <div class="playlist-history">
+                            <h4>Recent Playlist History</h4>
+                            <ul class="playlist-history-list" id="spotify-recent-history-list">
+                                <!-- Populated dynamically -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Automation View -->
+            <section class="content-view" id="view-automation">
+                <div class="integration-layout">
+                    <!-- Left: Automation Workflow Builder -->
+                    <div class="integration-list-pane" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div style="border-bottom: 1px solid var(--border-glass); padding-bottom: 0.75rem;">
+                            <h3 style="font-size: 1.1rem; font-weight: 700;">Create Workflow Rule</h3>
+                            <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem;">Automate Alisa's reactions to digital triggers.</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="automation-trigger-select">WHEN THIS HAPPENS (TRIGGER)</label>
+                            <select id="automation-trigger-select" class="form-control" style="background-color: var(--bg-input); width: 100%;">
+                                <option value="trigger-email-vikram">📧 Received urgent email from Vikram</option>
+                                <option value="trigger-mom-ping">💬 Received WhatsApp message from Mom</option>
+                                <option value="trigger-spotify-change">🎵 Spotify song changes</option>
+                                <option value="trigger-time-6pm">🕒 Local time hits 6:00 PM</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="automation-action-select">THEN DO THIS (ACTION)</label>
+                            <select id="automation-action-select" class="form-control" style="background-color: var(--bg-input); width: 100%;">
+                                <option value="action-whatsapp-forward">📱 Forward details to WhatsApp</option>
+                                <option value="action-spotify-play">🎶 Play 'Coding Grind' on Spotify</option>
+                                <option value="action-discord-post">👾 Broadcast update to Discord #announcements</option>
+                                <option value="action-mute-all">🔕 Mute all digital channels</option>
+                            </select>
+                        </div>
+
+                        <button class="btn btn-primary" id="btn-create-automation-rule" style="width: 100%;">Create Rule</button>
+                    </div>
+
+                    <!-- Right: Active Rules & Log Console -->
+                    <div class="integration-detail-pane" style="padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem; overflow-y: auto;">
+                        <div>
+                            <h3 style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">Active Rules</h3>
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">Manage Alisa's current automation behaviors.</p>
+                        </div>
+
+                        <div class="rules-list" id="automation-rules-list" style="display: flex; flex-direction: column; gap: 0.85rem;">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+
+                        <div style="margin-top: 1.5rem;">
+                            <h3 style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--color-accent);">Automation Console Logs</h3>
+                            <div id="automation-logs-console" style="background-color: rgba(0,0,0,0.3); border: 1px solid var(--border-glass); border-radius: 10px; padding: 1rem; font-family: monospace; font-size: 0.8rem; line-height: 1.4; color: #b1e8b2; height: 180px; overflow-y: auto;">
+                                <div style="color: var(--text-muted);">[14:08] Automation engine initialized. Alisa is watching.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Alert toast (when Alisa warns you about something) -->
+    <div class="toast-notification hidden" id="app-toast">
+        <div class="toast-header">
+            <span class="toast-icon">⚠️</span>
+            <strong id="toast-title">Urgent Notification</strong>
+            <button class="btn-close" id="btn-close-toast" aria-label="Close toast">&times;</button>
+        </div>
+        <div class="toast-body" id="toast-message">
+            Your boss emailed. He sounds annoyed. Go check it.
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
