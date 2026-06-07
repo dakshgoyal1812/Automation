@@ -29,9 +29,9 @@ if Config.DISCORD_BOT_TOKEN:
         if isinstance(message.channel, discord.DMChannel):
             from backend.agent import run_agent
             reply = await run_agent(message.content, sass_level="dramatic")
-            async with message.channel.typing():
-                await asyncio.sleep(0.5)
-                await message.channel.send(reply)
+            # Add to pending approvals queue (human-in-the-loop confirmation)
+            from backend.approvals_store import add_pending_approval
+            add_pending_approval("discord", str(message.channel.id), message.content, reply)
 
 async def start_discord_bot():
     """Background startup loop for the Discord Bot Client."""

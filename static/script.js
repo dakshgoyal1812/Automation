@@ -1201,4 +1201,86 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderAutomationRules();
 
+    // --- Pending Approvals UI Logic ---
+    const automationApprovalsList = document.getElementById('automation-approvals-list');
+
+    async function fetchAndRenderApprovals() {
+        if (!automationApprovalsList) return;
+        
+        try {
+            const res = await fetch('/api/approvals/list');
+            if (!res.ok) return;
+            const approvals = await res.json();
+            
+            if (approvals.length === 0) {
+                automationApprovalsList.innerHTML = `
+                    <div style="color: var(--text-muted); font-size: 0.85rem; padding: 0.5rem; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px dashed var(--border-glass);">No messages currently waiting for approval.</div>
+                `;
+                return;
+            }
+            
+            automationApprovalsList.innerHTML = '';
+            approvals.forEach(app => {
+                const div = document.createElement('div');
+                div.className = 'rule-item';
+                div.style.display = 'flex';
+                div.style.flexDirection = 'column';
+                div.style.gap = '0.5rem';
+                div.style.padding = '1rem';
+                div.style.background = 'rgba(255, 255, 255, 0.03)';
+                div.style.borderRadius = '12px';
+                div.style.border = '1px solid var(--border-glass)';
+                
+                div.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--color-primary); font-weight: 700; text-transform: uppercase;">
+                        <span>Platform: ${app.platform}</span>
+                        <span>Recipient: ${app.recipient}</span>
+                    </div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted); font-style: italic;">
+                        Incoming: "${app.original_message}"
+                    </div>
+                    <div style="font-size: 0.85rem; color: var(--text-main); font-weight: 500; background: rgba(0,0,0,0.2); padding: 0.5rem; border-radius: 6px; border-left: 3px solid var(--color-accent); white-space: pre-wrap;">
+                        Alisa's Reply: "${app.proposed_reply}"
+                    </div>
+                    <div style="display: flex; gap: 0.5rem; margin-top: 0.25rem;">
+                        <button class="btn btn-primary btn-sm btn-approve" data-id="${app.id}" style="padding: 0.3rem 0.6rem; font-size: 0.72rem; border-radius: 6px; flex-grow: 1;">Approve & Send</button>
+                        <button class="btn btn-secondary btn-sm btn-reject" data-id="${app.id}" style="padding: 0.3rem 0.6rem; font-size: 0.72rem; border-radius: 6px; flex-grow: 1; background: rgba(255,0,85,0.1); border-color: rgba(255,0,85,0.2); color: var(--color-danger);">Reject</button>
+                    </div>
+                `;
+                
+                div.querySelector('.btn-approve').addEventListener('click', async () => {
+                    try {
+                        const postRes = await fetch(`/api/approvals/${app.id}/approve`, { method: 'POST' });
+                        if (postRes.ok) {
+                            triggerToast('Approved', 'Message sent successfully.');
+                            fetchAndRenderApprovals();
+                        }
+                    } catch (e) {
+                        console.error(e);
+                    }
+                });
+                
+                div.querySelector('.btn-reject').addEventListener('click', async () => {
+                    try {
+                        const postRes = await fetch(`/api/approvals/${app.id}/reject`, { method: 'POST' });
+                        if (postRes.ok) {
+                            triggerToast('Rejected', 'Message discarded.');
+                            fetchAndRenderApprovals();
+                        }
+                    } catch (e) {
+                        console.error(e);
+                    }
+                });
+                
+                automationApprovalsList.appendChild(div);
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    // Initialize and run periodic fetching
+    fetchAndRenderApprovals();
+    setInterval(fetchAndRenderApprovals, 5000);
+
 });

@@ -43,6 +43,7 @@ from backend.integrations.telegram_bot import router as telegram_router
 from backend.integrations.whatsapp import router as whatsapp_router
 from backend.integrations.instagram import router as instagram_router
 from backend.integrations.discord_bot import router as discord_router
+from backend.approvals_store import router as approvals_router
 
 app.include_router(gmail_router, prefix="/api/gmail", tags=["Gmail"])
 app.include_router(spotify_router, prefix="/api/spotify", tags=["Spotify"])
@@ -50,6 +51,7 @@ app.include_router(telegram_router, prefix="/api/telegram", tags=["Telegram"])
 app.include_router(whatsapp_router, prefix="/api/whatsapp", tags=["WhatsApp"])
 app.include_router(instagram_router, prefix="/api/instagram", tags=["Instagram"])
 app.include_router(discord_router, prefix="/api/discord", tags=["Discord"])
+app.include_router(approvals_router, prefix="/api/approvals", tags=["Approvals"])
 
 # Serve static dashboard files
 # Root path returns index.html

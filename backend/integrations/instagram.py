@@ -61,8 +61,9 @@ async def instagram_webhook_event(req: Request):
         if sender_id and text_body:
             # Process with LLM agent
             reply = await run_agent(text_body, sass_level="dramatic")
-            # Send the response back
-            await send_instagram_dm(sender_id, reply)
+            # Add to pending approvals queue (human-in-the-loop confirmation)
+            from backend.approvals_store import add_pending_approval
+            add_pending_approval("instagram", sender_id, text_body, reply)
             
         return {"status": "success"}
     except Exception as e:

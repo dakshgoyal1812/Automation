@@ -36,8 +36,9 @@ async def telegram_webhook(req: Request):
         if chat_id and text:
             # Process with our sassy assistant Alisa
             reply = await run_agent(text, sass_level="dramatic")
-            # Reply back to Telegram chat
-            await send_telegram_message(chat_id, reply)
+            # Add to pending approvals queue (human-in-the-loop confirmation)
+            from backend.approvals_store import add_pending_approval
+            add_pending_approval("telegram", str(chat_id), text, reply)
             
         return {"status": "ok"}
     except Exception as e:

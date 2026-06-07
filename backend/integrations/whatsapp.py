@@ -69,8 +69,9 @@ async def whatsapp_webhook_event(req: Request):
             if from_number and text_body:
                 # Process with LLM agent
                 reply = await run_agent(text_body, sass_level="dramatic")
-                # Send the response back
-                await send_whatsapp_message(from_number, reply)
+                # Add to pending approvals queue (human-in-the-loop confirmation)
+                from backend.approvals_store import add_pending_approval
+                add_pending_approval("whatsapp", from_number, text_body, reply)
                 
         return {"status": "success"}
     except Exception as e:
